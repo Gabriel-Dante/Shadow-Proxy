@@ -1,4 +1,4 @@
-import type { HttpRequest } from "../types/requests.ts";
+import type { HttpRequest } from "../types/requests";
 
 
 interface RequestListProps {
