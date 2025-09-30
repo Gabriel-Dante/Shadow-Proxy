@@ -48,7 +48,7 @@ export default function Sidebar({ onSelect, activePage }: SidebarProps) {
             <div className="w-48 p-1">
               {sections.map((section) => (
                 <div key={section.title} className="mb-1">
-                  <h3 className="text-xs text-[#9ca3af] mb-2 px-2">
+                  <h3 className="text-xs text-[#9ca3af] mb-1 px-2">
                     {section.title}
                   </h3>
                   <div className="flex flex-col gap-1">
@@ -56,7 +56,7 @@ export default function Sidebar({ onSelect, activePage }: SidebarProps) {
                       <button
                         key={item.page}
                         onClick={() => onSelect(item.page)}
-                        className={`flex text-xs items-center gap-2 w-full text-left px-2 py-1 rounded-md transition 
+                        className={`flex text-sm items-center cursor-pointer gap-2 w-full text-left px-2 py-1 rounded-md transition 
                       ${activePage === item.page
                             ? "bg-gray-800 text-white"
                             : "hover:bg-gray-800 text-white"
