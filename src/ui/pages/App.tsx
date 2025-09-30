@@ -1,24 +1,21 @@
 import { useState } from 'react'
 import Sidebar from "../components/layout/Sidebar";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import Content from "../components/layout/Content";
+import SettingsPage from './SettingsPage';
+import HttpHistoryPage from './HttpHistoryPage';
+import AppLayout from '../AppLayout';
+
+const pages = {
+  httpHistory: <HttpHistoryPage />,
+  settings: <SettingsPage />,
+};
 
 export default function App() {
+  const [activePage, setActivePage] = useState<keyof typeof pages>("httpHistory");
 
+  
   return (
-    <div className="h-screen  grid grid-cols-[minmax(max-content,auto)_1fr] grid-rows-[auto_1fr_auto] gap-1 p-1 size-full">
-
-      
-      <Header />
-      <Sidebar />
-
-
-      <Content />
-      
-      <Footer />
-      
-    </div>
-
+    <AppLayout sidebar={<Sidebar onSelect={setActivePage} activePage={activePage} />}>
+      {pages[activePage]}
+    </AppLayout>
   );
 }

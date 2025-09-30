@@ -1,7 +1,15 @@
-export interface HttpRequest {
-  id: number;
-  method: string;
+import type { Method } from "./common";
+
+export type Req = {
+  id: string;
+  time: string;
+  method: Method;
   url: string;
-  body?: string;
-  response?: string;
-}
+  host: string;
+  path: string;
+  status: number;
+  length: number;
+  mime?: string;
+  request: string;
+  response: string;
+};
