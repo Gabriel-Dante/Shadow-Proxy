@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+<path d="M0,0 L12,0 L18,13 L20,14 L23,4 L25,0 L49,0 L54,15 L54,18 L56,18 L58,9 L61,0 L73,0 L70,10 L64,23 L61,26 L60,39 L50,39 L49,26 L45,21 L38,5 L38,2 L36,2 L34,8 L29,19 L37,36 L37,39 L25,39 L19,25 L17,28 L12,39 L0,39 L2,33 L8,20 L6,14 L0,2 Z " fill="#ECEDED" transform="translate(401,201)"/>
+<path d="M0,0 L12,0 L16,29 L18,19 L21,0 L32,0 L36,26 L37,29 L41,0 L53,0 L52,10 L46,38 L45,39 L29,39 L27,30 L24,39 L8,39 L6,33 L0,5 Z " fill="#EDEDEE" transform="translate(221,201)"/>
+<path d="M0,0 L28,0 L34,6 L34,20 L30,25 L35,37 L35,39 L24,39 L19,27 L11,26 L11,39 L0,39 Z M11,8 L11,18 L22,18 L23,17 L23,9 L22,8 Z " fill="#EAEAEB" transform="translate(326,201)"/>
+<path d="M0,0 L24,0 L30,6 L30,34 L25,39 L0,39 L-6,33 L-6,6 Z M7,8 L5,9 L5,30 L6,31 L18,31 L19,30 L19,9 L18,8 Z " fill="#EBEBEC" transform="translate(370,201)"/>
+<path d="M0,0 L24,0 L29,5 L29,34 L24,39 L-1,39 L-6,34 L-6,6 Z M6,8 L5,9 L5,30 L6,31 L18,31 L19,30 L19,10 L17,8 Z " fill="#F0F1F1" transform="translate(190,201)"/>
+<path d="M0,0 L27,0 L34,7 L34,32 L27,39 L0,39 Z M11,8 L11,31 L22,31 L24,29 L24,10 L22,8 Z " fill="#EEEEEE" transform="translate(146,201)"/>
+<path d="M0,0 L11,0 L11,14 L23,14 L23,0 L34,0 L34,39 L23,39 L23,23 L11,23 L11,39 L0,39 Z " fill="#E7E8E8" transform="translate(67,201)"/>
+<path d="M0,0 L17,0 L24,22 L28,36 L28,39 L17,39 L15,33 L2,32 L0,39 L-11,39 L-9,30 L-1,2 Z M8,8 L4,23 L13,23 L10,9 Z " fill="#EBECEC" transform="translate(115,201)"/>
+<path d="M0,0 L26,0 L26,9 L5,9 L6,14 L23,15 L28,20 L28,34 L23,39 L-4,39 L-4,31 L16,30 L17,25 L0,24 L-6,18 L-6,6 Z " fill="#ECECED" transform="translate(34,201)"/>
+<path d="M0,0 L28,0 L33,5 L33,22 L28,27 L11,27 L11,39 L0,39 Z M11,8 L11,19 L21,19 L22,18 L22,9 L21,8 Z " fill="#E9E9EA" transform="translate(290,201)"/>
+</svg>
