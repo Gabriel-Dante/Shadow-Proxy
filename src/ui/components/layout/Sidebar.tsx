@@ -58,8 +58,8 @@ export default function Sidebar({ onSelect, activePage }: SidebarProps) {
                         onClick={() => onSelect(item.page)}
                         className={`flex text-sm items-center cursor-pointer gap-2 w-full text-left px-2 py-1 rounded-md transition 
                       ${activePage === item.page
-                            ? "bg-gray-800 text-white"
-                            : "hover:bg-gray-800 text-white"
+                            ? "bg-gray-800 text-[#22c55e]"
+                            : "hover:bg-gray-800 hover:text-[#22c55e]"
                           }`}
                       >
                         {item.icon}

@@ -378,16 +378,17 @@ function statusColor(status: number) {
 
 function MethodBadge({ method }: { method: Method }) {
    const base = "px-2 py-0.5 rounded text-xs font-medium";
-   const map: Record<Method, string> = {
-      GET: "bg-green-700 text-green-200",
-      POST: "bg-blue-700 text-blue-200",
-      PUT: "bg-yellow-800 text-yellow-200",
-      DELETE: "bg-red-800 text-red-200",
-      PATCH: "bg-purple-800 text-purple-200",
-      OPTIONS: "bg-gray-500",
-      HEAD: "bg-gray-700  ",
-   };
-   return <span className={`${base} ${map[method]}`}>{method}</span>;
+   // const map: Record<Method, string> = {
+   //    GET: "bg-green-700 text-green-200",
+   //    POST: "bg-blue-700 text-blue-200",
+   //    PUT: "bg-yellow-800 text-yellow-200",
+   //    DELETE: "bg-red-800 text-red-200",
+   //    PATCH: "bg-purple-800 text-purple-200",
+   //    OPTIONS: "bg-gray-500",
+   //    HEAD: "bg-gray-700  ",
+   // };
+   // return <span className={`${base} ${map[method]}`}>{method}</span>;
+   return <span className={`${base} `}>{method}</span>;
 }
 
 export default function HttpHistoryPage() {
@@ -412,7 +413,7 @@ export default function HttpHistoryPage() {
 
    return (
       <div className="h-full flex flex-col text-gray-100">
-         <div className="flex items-center gap-3 p-3 border-b border-[#272933]">
+         <div className="flex items-center gap-3 p-3 ">
             <h2 className="text-lg font-semibold">HTTP History</h2>
             <div className="ml-auto flex items-center gap-2">
                <input
@@ -442,13 +443,13 @@ export default function HttpHistoryPage() {
             {/* Tabela de requests */}
             <div className="h-1/2 flex-1 min-w-[540px] overflow-auto">
                <table className="w-full text-sm table-auto">
-                  <thead className="sticky top-0 bg-[#16161e] z-10">
-                     <tr className="text-left text-xs text-gray-400">
-                        <th className="px-3 py-2">Time</th>
-                        <th className="px-3 py-2">Method</th>
-                        <th className="px-3 py-2">URL</th>
-                        <th className="px-3 py-2">Status</th>
-                        <th className="px-3 py-2">Length</th>
+                  <thead className="sticky top-0 bg-[#0f1113] z-10">
+                     <tr className="text-left text-xs text-gray-400 ">
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Time</th>
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Method</th>
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">URL</th>
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Status</th>
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Length</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -456,7 +457,7 @@ export default function HttpHistoryPage() {
                         <tr
                            key={r.id}
                            onClick={() => setSelected(r)}
-                           className="cursor-pointer hover:bg-[#0f1113] transition-colors"
+                           className="cursor-pointer hover:bg-[#0f1113] border-y border-[#272933] transition-colors"
                         >
                            <td className="px-3 py-2 align-top text-xs text-gray-400">{r.time}</td>
                            <td className="px-3 py-2 align-top">
