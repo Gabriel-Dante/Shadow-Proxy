@@ -1,7 +1,7 @@
-import type { HttpRequest } from "../types/requests.ts";
+import type { Req } from "../types/requests.ts";
 
 interface Props {
-  request: HttpRequest | null;
+  request: Req | null;
 }
 
 export default function RequestDetail({ request }: Props) {

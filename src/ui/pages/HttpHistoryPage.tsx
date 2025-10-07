@@ -445,6 +445,7 @@ export default function HttpHistoryPage() {
                <table className="w-full text-sm table-auto">
                   <thead className="sticky top-0 bg-[#0f1113] z-10">
                      <tr className="text-left text-xs text-gray-400 ">
+                        <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">id</th>
                         <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Time</th>
                         <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">Method</th>
                         <th className="px-3 py-2 outline outline-[#161B22] -outline-offset-1">URL</th>
@@ -459,15 +460,16 @@ export default function HttpHistoryPage() {
                            onClick={() => setSelected(r)}
                            className="cursor-pointer hover:bg-[#0f1113] border-y border-[#272933] transition-colors"
                         >
-                           <td className="px-3 py-2 align-top text-xs text-gray-400">{r.time}</td>
-                           <td className="px-3 py-2 align-top">
+                           <td className="px-3 py-2 align-center text-xs text-gray-400">{r.id}</td>
+                           <td className="px-3 py-2  text-xs text-gray-400">{r.time}</td>
+                           <td className="px-3 py-2 ">
                               <MethodBadge method={r.method} />
                            </td>
-                           <td className="px-3 py-2 align-top break-all">{r.url}</td>
-                           <td className={`px-3 py-2 align-top ${statusColor(r.status)} font-medium`}>
+                           <td className="px-3 py-2  break-all">{r.url}</td>
+                           <td className={`px-3 py-2  ${statusColor(r.status)} font-medium`}>
                               {r.status}
                            </td>
-                           <td className="px-3 py-2 align-top text-gray-400">{r.length}</td>
+                           <td className="px-3 py-2  text-gray-400">{r.length}</td>
                         </tr>
                      ))}
                      {filtered.length === 0 && (

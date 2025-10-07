@@ -12,4 +12,5 @@ export type Req = {
   mime?: string;
   request: string;
   response: string;
+  body?: string;
 };
