@@ -7,6 +7,9 @@ import { getPreloadPath } from "./pathResolver.js";
 
 app.on("ready", ()=> {
    const mainWindow = new BrowserWindow({
+      autoHideMenuBar: true,
+      //titleBarStyle
+      //backgroundColor: '#0f1113',
       webPreferences:{
          preload: getPreloadPath(),
       }

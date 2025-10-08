@@ -484,7 +484,7 @@ export default function HttpHistoryPage() {
             </div>
 
             {/* Painel de detalhes fixo embaixo */}
-            <aside className="h-1/2 bg-[#16161e] p-3 border-t border-[#272933] overflow-auto">
+            <aside className="h-1/2 bg-bgsimple p-3 border-t border-[#272933] overflow-auto">
                {!selected ? (
                   <div className="text-gray-400">Select a request to see details</div>
                ) : (

@@ -2,7 +2,7 @@
 export default function Footer() {
 
    return (
-      <div className="col-start-1 row-start-3 text-sm col-span-full bg-[#161B22] shadow-md rounded-md">
+      <div className="col-start-1 row-start-3 text-sm col-span-full bg-bgprimary shadow-md rounded-md">
          <div className="w-full relative">
             <div className="overflow-hidden flex flex-col rounded-[0.25rem] shadow-md bg-surface-0 dark:bg-surface-800 text-surface-700 dark:text-surface-0" >
                <div className="flex flex-col" >

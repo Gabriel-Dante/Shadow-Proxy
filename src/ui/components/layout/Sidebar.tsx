@@ -41,7 +41,7 @@ const sections: Section[] = [
 export default function Sidebar({ onSelect, activePage }: SidebarProps) {
   return (
     <aside className='col-start-1 row-start-2 row-end-3 min-w-fit min-h-0'>
-      <div className="h-full flex flex-col pt-2 rounded-md  bg-[#161B22] ">
+      <div className="h-full flex flex-col pt-2 rounded-md bg-bgprimary ">
         <div className="flex flex-col justify-between items-center gap-2 min-h-0 w-full flex-1">
 
           <div className="flex-1 flex flex-col items-center gap-2 overflow-y-auto scrollbar-hide">
