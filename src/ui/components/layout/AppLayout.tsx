@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 // import Sidebar from "./components/layout/Sidebar";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 interface AppLayoutProps {
   children: ReactNode;

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Sidebar from "../components/layout/Sidebar";
-import SettingsPage from './SettingsPage';
-import HttpHistoryPage from './HttpHistoryPage';
-import AppLayout from '../AppLayout';
+import Sidebar from "./components/layout/Sidebar";
+import SettingsPage from './pages/SettingsPage';
+import HttpHistoryPage from './pages/HttpHistoryPage';
+import AppLayout from './components/layout/AppLayout';
 
 const pages = {
   httpHistory: <HttpHistoryPage />,
