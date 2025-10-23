@@ -7,8 +7,9 @@ type DetailsPanelProps = {
 
 export default function DetailsPanel({selected, setSelected} : DetailsPanelProps) {
 
+
     return (
-        <aside className="h-1/2 bg-bgsimple p-3 border-t border-[#272933] overflow-auto">
+        <aside className="h-1/2 bg-bgsimple rounded-b-md p-3 border-t border-[#272933] overflow-auto">
             {!selected ? (
                 <div className="text-gray-400">Select a request to see details</div>
             ) : (
