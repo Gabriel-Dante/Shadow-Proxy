@@ -17,7 +17,10 @@
     "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64"
   },
   "dependencies": {
+    "@codemirror/legacy-modes": "^6.5.2",
     "@tailwindcss/vite": "^4.1.13",
+    "@uiw/codemirror-theme-github": "^4.25.2",
+    "@uiw/react-codemirror": "^4.25.2",
     "http-z": "^8.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

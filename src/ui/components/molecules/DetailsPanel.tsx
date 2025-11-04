@@ -1,12 +1,14 @@
 import type { HttpExchange } from "@/ui/types/common"
+import HttpEditor from "@/ui/components/atoms/HttpEditor"
 
 type DetailsPanelProps = {
     selected: HttpExchange | null,
     setSelected: React.Dispatch<React.SetStateAction<HttpExchange | null>>,
 }
 
-export default function DetailsPanel({selected, setSelected} : DetailsPanelProps) {
+export default function DetailsPanel({ selected, setSelected }: DetailsPanelProps) {
 
+    console.log("render")
 
     return (
         <aside className="h-1/2 bg-bgsimple rounded-b-md p-3 border-t border-[#272933] overflow-auto">
@@ -17,16 +19,18 @@ export default function DetailsPanel({selected, setSelected} : DetailsPanelProps
                     <div className="flex mt-4 gap-2 text-sm">
                         <section className="w-1/2">
                             <h4 className="text-xs text-gray-400 mb-1">Request</h4>
-                            <pre className="bg-[#0f1113] p-2 rounded text-xs overflow-auto h-40 whitespace-pre-wrap">
+                            {/* <pre className="bg-[#0f1113] p-2 rounded text-xs overflow-auto h-40 whitespace-pre-wrap">
                                 {selected.request.body}
-                            </pre>
+                            </pre> */}
+                            <HttpEditor isReadOnly={false} />
                         </section>
 
                         <section className="w-1/2">
                             <h4 className="text-xs text-gray-400 mb-1">Response</h4>
-                            <pre className="bg-[#0f1113] p-2 rounded text-xs overflow-auto h-40 whitespace-pre-wrap">
+                            {/* <pre className="bg-[#0f1113] p-2 rounded text-xs overflow-auto h-40 whitespace-pre-wrap">
                                 {selected.response.body || "(empty)"}
-                            </pre>
+                            </pre> */}
+                            <HttpEditor isReadOnly={true} />
                         </section>
                     </div>
 

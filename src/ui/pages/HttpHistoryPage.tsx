@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Method, HttpExchange } from "../types/common";
-import DetailsPanel from "../components/atoms/DetailsPanel";
-import RequestTable from "../components/atoms/RequestTable";
+import DetailsPanel from "../components/molecules/DetailsPanel";
+import RequestTable from "../components/molecules/RequestTable";
 
 const SAMPLE: HttpExchange[] = [
    {

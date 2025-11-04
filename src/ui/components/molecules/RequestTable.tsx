@@ -1,5 +1,5 @@
 import { statusColor } from "@/ui/utils/statusColor"
-import { MethodBadge } from "./MethodBadge"
+import { MethodBadge } from "../atoms/MethodBadge"
 import type { HttpExchange } from "@/ui/types/common"
 
 type RequestTableProps = {
