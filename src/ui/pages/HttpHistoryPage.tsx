@@ -3,7 +3,7 @@ import type { Method, HttpExchange } from "../types/common";
 import DetailsPanel from "../components/atoms/DetailsPanel";
 import RequestTable from "../components/atoms/RequestTable";
 
-export const SAMPLE: HttpExchange[] = [
+const SAMPLE: HttpExchange[] = [
    {
       id: "1",
       time: "2025-09-29 14:33:02",
