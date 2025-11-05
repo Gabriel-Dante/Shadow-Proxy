@@ -11,11 +11,11 @@ type RequestTableProps = {
 export default function RequestTable({requests, setSelected}: RequestTableProps) {
 
     return (
-        <div className="h-1/2 flex-1 min-w-[540px] overflow-auto">
+        <div className="h-1/2 flex-1 min-w-[540px] overflow-auto bg-bgprimary rounded-b-sm ">
             <table className="w-full text-sm table-fixed">
                 <thead className="sticky top-0 bg-[#0f1113] z-10">
                     <tr className="text-left text-xs text-gray-400 ">
-                        <th className="px-3 py-2 outline outline-[#161B22] w-20 -outline-offset-1">Id</th>
+                        <th className="px-3 py-2 outline outline-[#161B22] w-20 -outline-offset-1">ID</th>
                         <th className="px-3 py-2 outline outline-[#161B22] w-32 -outline-offset-1">Time</th>
                         <th className="px-3 py-2 outline outline-[#161B22] w-24 -outline-offset-1">Method</th>
                         <th className="px-3 py-2 outline outline-[#161B22] w-[300px] -outline-offset-1">URL</th>

@@ -75,21 +75,21 @@ export default function HttpHistoryPage() {
 
    return (
       <div className="h-full flex flex-col text-gray-100">
-         <div className="flex items-center gap-3 p-3 ">
-            <h2 className="text-lg font-semibold">HTTP History</h2>
+         <div className="flex items-center gap-3 p-3 bg-bgprimary rounded-t-md">
+            <h2 className="text-lg text-emerald-400/30">HTTP History</h2>
             <div className="ml-auto flex items-center gap-2">
                <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search url, host, status..."
-                  className="px-2 py-1 bg-[#0f1113] border border-[#272933] rounded text-sm focus:outline-none"
+                  className="px-2 py-1 bg-[#0f1113] border border-emerald-400/30 rounded text-sm focus:outline-none"
                />
                <select
                   value={methodFilter}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                      setMethodFilter(e.target.value as Method | "ALL")
                   }
-                  className="bg-[#0f1113] border border-[#272933] rounded px-2 py-1 text-sm"
+                  className="bg-[#0f1113] border border-emerald-400/30 rounded px-2 py-1 text-sm"
                >
                   <option value="ALL">All</option>
                   <option value="GET">GET</option>
@@ -101,7 +101,7 @@ export default function HttpHistoryPage() {
             </div>
          </div>
 
-         <div className="flex flex-col flex-1 overflow-hidden">
+         <div className="flex flex-col flex-1 overflow-hidden ">
             {/* Tabela de requests */}
             <RequestTable requests={filtered} setSelected={setSelected} />
 

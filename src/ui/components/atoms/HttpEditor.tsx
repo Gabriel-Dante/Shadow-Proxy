@@ -15,7 +15,7 @@ Accept: application/json
    );
 
    return (
-      <div className="w-full rounded-md overflow-auto">
+      <div className="w-full flex h-full size-full overflow-auto">
          <CodeMirror
             value={code}
             theme={githubDark}
@@ -24,9 +24,9 @@ Accept: application/json
             }}
             readOnly={isReadOnly}
             editable={!isReadOnly}
-            height="100"
+            height="100%" 
             extensions={[StreamLanguage.define(http)]}
-
+            className="text-xs w-full"
          />
       </div>
    );
