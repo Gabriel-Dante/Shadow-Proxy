@@ -1,122 +1,125 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Method, HttpExchange } from "../types/common";
 import DetailsPanel from "../components/molecules/DetailsPanel";
 import RequestTable from "../components/molecules/RequestTable";
-
+import { build as HttpZBuild, HttpZError, utils } from 'http-z';
+// import type { RequestModel, ResponseModel } from "@/ui/types/common";
 
 const SAMPLE: HttpExchange[] = [
-  {
-    id: "1",
-    time: "2025-11-06T13:05:00Z",
-    request: {
-      method: "GET",
-      target: "/api/users",
-      host: "example.com",
-      path: "/api/users",
-      protocolVersion: "HTTP/1.1",
-      headers: [{ name: "Accept", value: "application/json" }],
-      queryParams: [{ name: "page", value: "1" }],
-    },
-    response: {
-      protocolVersion: "HTTP/1.1",
-      statusCode: 200,
-      statusMessage: "OK",
-      headers: [{ name: "Content-Type", value: "application/json" }],
-      body: { text: '{"users":[{"id":1,"name":"Alice"}]}' },
-    },
-  },
-  {
-    id: "2",
-    time: "2025-11-06T13:06:00Z",
-    request: {
-      method: "POST",
-      target: "/api/login",
-      host: "example.com",
-      path: "/api/login",
-      protocolVersion: "HTTP/1.1",
-      headers: [
-        { name: "Content-Type", value: "application/json" },
-        { name: "Accept", value: "application/json" },
-      ],
-      body: { text: '{"username":"john","password":"secret"}' },
-    },
-    response: {
-      protocolVersion: "HTTP/1.1",
-      statusCode: 201,
-      statusMessage: "Created",
-      headers: [{ name: "Set-Cookie", value: "sessionId=abc123" }],
-      body: { text: '{"token":"xyz"}' },
-    },
-  },
-  {
-    id: "3",
-    time: "2025-11-06T13:07:00Z",
-    request: {
-      method: "DELETE",
-      target: "/api/users/1",
-      host: "example.com",
-      path: "/api/users/1",
-      protocolVersion: "HTTP/1.1",
-      headers: [{ name: "Authorization", value: "Bearer xyz" }],
-    },
-    response: {
-      protocolVersion: "HTTP/1.1",
-      statusCode: 204,
-      statusMessage: "No Content",
-      headers: [],
-    },
-  },
-  {
-    id: "4",
-    time: "2025-11-06T13:08:00Z",
-    request: {
-      method: "PATCH",
-      target: "/api/users/1",
-      host: "example.com",
-      path: "/api/users/1",
-      protocolVersion: "HTTP/1.1",
-      headers: [{ name: "Content-Type", value: "application/json" }],
-      body: { text: '{"name":"Alice Updated"}' },
-    },
-    response: {
-      protocolVersion: "HTTP/1.1",
-      statusCode: 200,
-      statusMessage: "OK",
-      headers: [{ name: "Content-Type", value: "application/json" }],
-      body: { text: '{"id":1,"name":"Alice Updated"}' },
-    },
-  },
-  {
-    id: "5",
-    time: "2025-11-06T13:09:00Z",
-    request: {
-      method: "OPTIONS",
-      target: "/api/users",
-      host: "example.com",
-      path: "/api/users",
-      protocolVersion: "HTTP/1.1",
-      headers: [{ name: "Origin", value: "https://client.com" }],
-    },
-    response: {
-      protocolVersion: "HTTP/1.1",
-      statusCode: 204,
-      statusMessage: "No Content",
-      headers: [
-        { name: "Access-Control-Allow-Origin", value: "*" },
-        { name: "Access-Control-Allow-Methods", value: "GET,POST,DELETE" },
-      ],
-    },
-  },
+   {
+      id: "1",
+      time: "2025-11-06T13:05:00Z",
+      request: {
+         method: "GET",
+         target: "/api/users",
+         host: "example.com",
+         path: "/api/users",
+         protocolVersion: "HTTP/1.1",
+         headers: [{ name: "Accept", value: "application/json" }],
+         queryParams: [{ name: "page", value: "1" }],
+      },
+      response: {
+         protocolVersion: "HTTP/1.1",
+         statusCode: 200,
+         statusMessage: "OK",
+         headers: [{ name: "Content-Type", value: "application/json" }],
+         body: { text: '{"users":[{"id":1,"name":"Alice"}]}' },
+      },
+   },
+   {
+      id: "2",
+      time: "2025-11-06T13:06:00Z",
+      request: {
+         method: "POST",
+         target: "/api/login",
+         host: "example.com",
+         path: "/api/login",
+         protocolVersion: "HTTP/1.1",
+         headers: [
+            { name: "Content-Type", value: "application/json" },
+            { name: "Accept", value: "application/json" },
+         ],
+         body: { text: '{"username":"john","password":"secret"}' },
+      },
+      response: {
+         protocolVersion: "HTTP/1.1",
+         statusCode: 201,
+         statusMessage: "Created",
+         headers: [{ name: "Set-Cookie", value: "sessionId=abc123" }],
+         body: { text: '{"token":"xyz"}' },
+      },
+   },
+   {
+      id: "3",
+      time: "2025-11-06T13:07:00Z",
+      request: {
+         method: "DELETE",
+         target: "/api/users/1",
+         host: "example.com",
+         path: "/api/users/1",
+         protocolVersion: "HTTP/1.1",
+         headers: [{ name: "Authorization", value: "Bearer xyz" }],
+      },
+      response: {
+         protocolVersion: "HTTP/1.1",
+         statusCode: 204,
+         statusMessage: "No Content",
+         headers: [],
+      },
+   },
+   {
+      id: "4",
+      time: "2025-11-06T13:08:00Z",
+      request: {
+         method: "PATCH",
+         target: "/api/users/1",
+         host: "example.com",
+         path: "/api/users/1",
+         protocolVersion: "HTTP/1.1",
+         headers: [{ name: "Content-Type", value: "application/json" }],
+         body: { text: '{"name":"Alice Updated"}' },
+      },
+      response: {
+         protocolVersion: "HTTP/1.1",
+         statusCode: 200,
+         statusMessage: "OK",
+         headers: [{ name: "Content-Type", value: "application/json" }],
+         body: { text: '{"id":1,"name":"Alice Updated"}' },
+      },
+   },
+   {
+      id: "5",
+      time: "2025-11-06T13:09:00Z",
+      request: {
+         method: "OPTIONS",
+         target: "/api/users",
+         host: "example.com",
+         path: "/api/users",
+         protocolVersion: "HTTP/1.1",
+         headers: [{ name: "Origin", value: "https://client.com" }],
+      },
+      response: {
+         protocolVersion: "HTTP/1.1",
+         statusCode: 204,
+         statusMessage: "No Content",
+         headers: [
+            { name: "Access-Control-Allow-Origin", value: "*" },
+            { name: "Access-Control-Allow-Methods", value: "GET,POST,DELETE" },
+         ],
+      },
+   },
 ];
 
 
 
 export default function HttpHistoryPage() {
-   const [query, setQuery] = useState("");
+   const [query, setQuery] = useState<string>("");
    const [methodFilter, setMethodFilter] = useState<Method | "ALL">("ALL");
-   const [selected, setSelected] = useState<HttpExchange | null>(null);
+   const [selectedRequest, setSelectedRequest] = useState<HttpExchange | null>(null);
    const [list] = useState<HttpExchange[]>(SAMPLE);
 
+   const [rawRequest, setRawRequest] = useState("");
+   const [rawResponse, setRawResponse] = useState("");
 
    const filtered = list.filter((r) => {
       if (methodFilter !== "ALL" && r.request.method !== methodFilter) return false;
@@ -129,6 +132,29 @@ export default function HttpHistoryPage() {
          String(r.response.statusCode).includes(q)
       );
    });
+
+   useEffect(() => {
+      if (!selectedRequest) return;
+
+      try {
+         const request = HttpZBuild(selectedRequest.request);
+         const response = HttpZBuild(selectedRequest.response);
+
+         console.log(selectedRequest.request)
+         console.log(request)
+
+         setRawRequest(request);
+         setRawResponse(response);
+      } catch (err) {
+         if (err instanceof HttpZError) {
+            console.warn("Erro HTTPZ:", err.message);
+         } else {
+            console.error("Erro inesperado:", err);
+         }
+         setRawRequest("");
+         setRawResponse("");
+      }
+   }, [selectedRequest]);
 
 
    return (
@@ -160,8 +186,8 @@ export default function HttpHistoryPage() {
          </div>
 
          <div className="flex flex-col flex-1 overflow-hidden ">
-            <RequestTable requests={filtered} setSelected={setSelected} />
-            <DetailsPanel request="" response="" />
+            <RequestTable requests={filtered} setSelected={setSelectedRequest} />
+            <DetailsPanel request={rawRequest} response={rawResponse} />
          </div>
       </div>
    );

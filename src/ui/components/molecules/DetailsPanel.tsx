@@ -1,7 +1,5 @@
-import type { HttpExchange } from "@/ui/types/common"
 import HttpEditor from "@/ui/components/atoms/HttpEditor"
-import { parse, build } from 'http-z';
-import type { RequestModel, ResponseModel } from "@/ui/types/common";
+
 
 
 type DetailsPanelProps = {
