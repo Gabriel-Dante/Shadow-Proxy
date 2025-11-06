@@ -5,31 +5,49 @@ export type Method =
   | "DELETE"
   | "PATCH"
   | "HEAD"
-  | "OPTIONS";
+  | "OPTIONS"
+  | "CONNECT"
+  | "TRACE"
 
-export type Request = {
-  method: Method;
-  url: string;
-  host: string;
-  path: string;
-  status: number;
-  length: number;
-  mime?: string;
-  body?: string;
+type HttpZHeader = {
+  name: string;
+  value: string;
+};
+
+type HttpZParam = {
+    name: string;
+    value?: string;
+};
+
+type HttpZParserModel = {
+  headers: HttpZHeader[];
+  body?: HttpZBody;
+  headersSize?: number;
+  bodySize?: number;
 };
 
 
-export type Response = {
-  status: number;
-  headers: Record<string, string>;
-  body?: string;
-  mime?: string;
-  time: string;
+export type RequestModel = HttpZParserModel & {
+    method: HttpMethod;
+    target: string;
+    host: string;
+    path: string;
+    protocolVersion: HttpProtocolVersion;
+    queryParams?: HttpZParam[];
+    cookies?: HttpZParam[];
+}
+
+
+export type ResponseModel = HttpZParserModel & {
+    protocolVersion: HttpProtocolVersion;
+    statusCode: number;
+    statusMessage: string;
+    cookies?: HttpZCookieParam[];
 };
 
 export type HttpExchange = {
   id: string;
   time: string;
-  request: Request;
-  response: Response;
+  request: RequestModel;
+  response: ResponseModel;
 }

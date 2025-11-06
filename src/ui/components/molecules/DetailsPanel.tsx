@@ -1,12 +1,16 @@
 import type { HttpExchange } from "@/ui/types/common"
 import HttpEditor from "@/ui/components/atoms/HttpEditor"
+import { parse, build } from 'http-z';
+import type { RequestModel, ResponseModel } from "@/ui/types/common";
+
 
 type DetailsPanelProps = {
-    selected: HttpExchange | null,
-    setSelected: React.Dispatch<React.SetStateAction<HttpExchange | null>>,
+    request: string | null,
+    response: string | null,
+    // setSelected: React.Dispatch<React.SetStateAction<HttpExchange | null>>,
 }
 
-export default function DetailsPanel({ selected, setSelected }: DetailsPanelProps) {
+export default function DetailsPanel({ request, response }: DetailsPanelProps) {
 
 
     return (
@@ -16,7 +20,7 @@ export default function DetailsPanel({ selected, setSelected }: DetailsPanelProp
                     <section className="w-full h-full grid grid-rows-[auto_1fr_auto]  rounded-b-md">
                         <h4 className="p-3 bg-bgprimary my-1 rounded-t-sm">Request</h4>
                         <div className="overflow-auto">
-                            <HttpEditor isReadOnly={false} />
+                            <HttpEditor isReadOnly={true} rawHttp={request}/>
                         </div>
                         <h4 className="p-2 bg-bgprimary rounded-b-md  "></h4>
 
@@ -25,7 +29,7 @@ export default function DetailsPanel({ selected, setSelected }: DetailsPanelProp
                     <section className="w-full h-full grid grid-rows-[auto_1fr_auto]  rounded-b-md">
                         <h4 className="p-3 bg-bgprimary my-1 rounded-t-sm">Response</h4>
                         <div className="overflow-auto">
-                            <HttpEditor isReadOnly={false} />
+                            <HttpEditor isReadOnly={true} rawHttp={response}/>
                         </div>
                         <h4 className="p-2 bg-bgprimary rounded-b-md "></h4>
 

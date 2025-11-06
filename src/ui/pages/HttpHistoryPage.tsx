@@ -3,54 +3,112 @@ import type { Method, HttpExchange } from "../types/common";
 import DetailsPanel from "../components/molecules/DetailsPanel";
 import RequestTable from "../components/molecules/RequestTable";
 
+
 const SAMPLE: HttpExchange[] = [
-   {
-      id: "1",
-      time: "2025-09-29 14:33:02",
-      request: {
-         method: "GET",
-         url: "https://api.example.com/users",
-         host: "api.example.com",
-         path: "/users",
-         status: 200,
-         length: 842,
-         mime: "application/json",
-         body: "GET /users HTTP/1.1\nHost: api.example.com\n\n",
-      },
-      response: {
-         status: 200,
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: '{"users":[{"id":1,"name":"Alice"}]}',
-         mime: "application/json",
-         time: "2025-09-29 14:33:02",
-      },
-   },
-   {
-      id: "2",
-      time: "2025-09-29 14:33:15",
-      request: {
-         method: "POST",
-         url: "https://api.example.com/login",
-         host: "api.example.com",
-         path: "/login",
-         status: 401,
-         length: 128,
-         mime: "application/json",
-         body: 'POST /login HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{"user":"bob"}',
-      },
-      response: {
-         status: 401,
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: '{"error":"invalid credentials"}',
-         mime: "application/json",
-         time: "2025-09-29 14:33:15",
-      },
-   },
+  {
+    id: "1",
+    time: "2025-11-06T13:05:00Z",
+    request: {
+      method: "GET",
+      target: "/api/users",
+      host: "example.com",
+      path: "/api/users",
+      protocolVersion: "HTTP/1.1",
+      headers: [{ name: "Accept", value: "application/json" }],
+      queryParams: [{ name: "page", value: "1" }],
+    },
+    response: {
+      protocolVersion: "HTTP/1.1",
+      statusCode: 200,
+      statusMessage: "OK",
+      headers: [{ name: "Content-Type", value: "application/json" }],
+      body: { text: '{"users":[{"id":1,"name":"Alice"}]}' },
+    },
+  },
+  {
+    id: "2",
+    time: "2025-11-06T13:06:00Z",
+    request: {
+      method: "POST",
+      target: "/api/login",
+      host: "example.com",
+      path: "/api/login",
+      protocolVersion: "HTTP/1.1",
+      headers: [
+        { name: "Content-Type", value: "application/json" },
+        { name: "Accept", value: "application/json" },
+      ],
+      body: { text: '{"username":"john","password":"secret"}' },
+    },
+    response: {
+      protocolVersion: "HTTP/1.1",
+      statusCode: 201,
+      statusMessage: "Created",
+      headers: [{ name: "Set-Cookie", value: "sessionId=abc123" }],
+      body: { text: '{"token":"xyz"}' },
+    },
+  },
+  {
+    id: "3",
+    time: "2025-11-06T13:07:00Z",
+    request: {
+      method: "DELETE",
+      target: "/api/users/1",
+      host: "example.com",
+      path: "/api/users/1",
+      protocolVersion: "HTTP/1.1",
+      headers: [{ name: "Authorization", value: "Bearer xyz" }],
+    },
+    response: {
+      protocolVersion: "HTTP/1.1",
+      statusCode: 204,
+      statusMessage: "No Content",
+      headers: [],
+    },
+  },
+  {
+    id: "4",
+    time: "2025-11-06T13:08:00Z",
+    request: {
+      method: "PATCH",
+      target: "/api/users/1",
+      host: "example.com",
+      path: "/api/users/1",
+      protocolVersion: "HTTP/1.1",
+      headers: [{ name: "Content-Type", value: "application/json" }],
+      body: { text: '{"name":"Alice Updated"}' },
+    },
+    response: {
+      protocolVersion: "HTTP/1.1",
+      statusCode: 200,
+      statusMessage: "OK",
+      headers: [{ name: "Content-Type", value: "application/json" }],
+      body: { text: '{"id":1,"name":"Alice Updated"}' },
+    },
+  },
+  {
+    id: "5",
+    time: "2025-11-06T13:09:00Z",
+    request: {
+      method: "OPTIONS",
+      target: "/api/users",
+      host: "example.com",
+      path: "/api/users",
+      protocolVersion: "HTTP/1.1",
+      headers: [{ name: "Origin", value: "https://client.com" }],
+    },
+    response: {
+      protocolVersion: "HTTP/1.1",
+      statusCode: 204,
+      statusMessage: "No Content",
+      headers: [
+        { name: "Access-Control-Allow-Origin", value: "*" },
+        { name: "Access-Control-Allow-Methods", value: "GET,POST,DELETE" },
+      ],
+    },
+  },
 ];
+
 
 
 export default function HttpHistoryPage() {
@@ -65,10 +123,10 @@ export default function HttpHistoryPage() {
       if (!query) return true;
       const q = query.toLowerCase();
       return (
-         r.request.url.toLowerCase().includes(q) ||
+         r.request.path.toLowerCase().includes(q) ||
          r.request.host.toLowerCase().includes(q) ||
          r.request.path.toLowerCase().includes(q) ||
-         String(r.request.status).includes(q)
+         String(r.response.statusCode).includes(q)
       );
    });
 
@@ -102,12 +160,8 @@ export default function HttpHistoryPage() {
          </div>
 
          <div className="flex flex-col flex-1 overflow-hidden ">
-            {/* Tabela de requests */}
             <RequestTable requests={filtered} setSelected={setSelected} />
-
-
-            {/* Painel de detalhes fixo embaixo */}
-            <DetailsPanel selected={selected} setSelected={setSelected} />
+            <DetailsPanel request="" response="" />
          </div>
       </div>
    );

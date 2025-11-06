@@ -2,29 +2,30 @@ import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
 import { http } from "@codemirror/legacy-modes/mode/http";
-import { githubDark } from "@uiw/codemirror-theme-github";
+import { githubDarkInit } from "@uiw/codemirror-theme-github";
 
 
-export default function HttpEditor({ isReadOnly }: { isReadOnly: boolean }) {
-   const [code, setCode] = useState(
-      `GET /api/users/123 HTTP/1.1
-Host: example.com
-User-Agent: CustomClient/1.0
-Accept: application/json
-`
-   );
+
+
+export default function HttpEditor({ isReadOnly, rawHttp, setRawHttp }: { isReadOnly: boolean, rawHttp: string | null, setRawHttp?: React.Dispatch<React.SetStateAction<string>> }) {
 
    return (
       <div className="w-full flex h-full size-full overflow-auto">
          <CodeMirror
-            value={code}
-            theme={githubDark}
+            value={rawHttp ?? ""}
+            theme={githubDarkInit({
+               settings: {
+                  gutterBackground: '#161b2206',
+                  background: '#161B22',
+                  caret: '#22c55e'
+               }
+            })}
             onChange={(value) => {
-               setCode(value);
+               setRawHttp?.(value);
             }}
             readOnly={isReadOnly}
             editable={!isReadOnly}
-            height="100%" 
+            height="100%"
             extensions={[StreamLanguage.define(http)]}
             className="text-xs w-full"
          />
