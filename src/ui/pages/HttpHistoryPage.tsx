@@ -1,114 +1,115 @@
 import { useState, useEffect } from "react";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { Method, HttpExchange } from "../types/common";
 import DetailsPanel from "../components/molecules/DetailsPanel";
 import RequestTable from "../components/molecules/RequestTable";
-import { build as HttpZBuild, HttpZError, utils } from 'http-z';
+import { build as HttpZBuild, HttpZError } from 'http-z';
 // import type { RequestModel, ResponseModel } from "@/ui/types/common";
 
-const SAMPLE: HttpExchange[] = [
-   {
-      id: "1",
-      time: "2025-11-06T13:05:00Z",
-      request: {
-         method: "GET",
-         target: "/api/users",
-         host: "example.com",
-         path: "/api/users",
-         protocolVersion: "HTTP/1.1",
-         headers: [{ name: "Accept", value: "application/json" }],
-         queryParams: [{ name: "page", value: "1" }],
-      },
-      response: {
-         protocolVersion: "HTTP/1.1",
-         statusCode: 200,
-         statusMessage: "OK",
-         headers: [{ name: "Content-Type", value: "application/json" }],
-         body: { text: '{"users":[{"id":1,"name":"Alice"}]}' },
-      },
-   },
-   {
-      id: "2",
-      time: "2025-11-06T13:06:00Z",
-      request: {
-         method: "POST",
-         target: "/api/login",
-         host: "example.com",
-         path: "/api/login",
-         protocolVersion: "HTTP/1.1",
-         headers: [
-            { name: "Content-Type", value: "application/json" },
-            { name: "Accept", value: "application/json" },
-         ],
-         body: { text: '{"username":"john","password":"secret"}' },
-      },
-      response: {
-         protocolVersion: "HTTP/1.1",
-         statusCode: 201,
-         statusMessage: "Created",
-         headers: [{ name: "Set-Cookie", value: "sessionId=abc123" }],
-         body: { text: '{"token":"xyz"}' },
-      },
-   },
-   {
-      id: "3",
-      time: "2025-11-06T13:07:00Z",
-      request: {
-         method: "DELETE",
-         target: "/api/users/1",
-         host: "example.com",
-         path: "/api/users/1",
-         protocolVersion: "HTTP/1.1",
-         headers: [{ name: "Authorization", value: "Bearer xyz" }],
-      },
-      response: {
-         protocolVersion: "HTTP/1.1",
-         statusCode: 204,
-         statusMessage: "No Content",
-         headers: [],
-      },
-   },
-   {
-      id: "4",
-      time: "2025-11-06T13:08:00Z",
-      request: {
-         method: "PATCH",
-         target: "/api/users/1",
-         host: "example.com",
-         path: "/api/users/1",
-         protocolVersion: "HTTP/1.1",
-         headers: [{ name: "Content-Type", value: "application/json" }],
-         body: { text: '{"name":"Alice Updated"}' },
-      },
-      response: {
-         protocolVersion: "HTTP/1.1",
-         statusCode: 200,
-         statusMessage: "OK",
-         headers: [{ name: "Content-Type", value: "application/json" }],
-         body: { text: '{"id":1,"name":"Alice Updated"}' },
-      },
-   },
-   {
-      id: "5",
-      time: "2025-11-06T13:09:00Z",
-      request: {
-         method: "OPTIONS",
-         target: "/api/users",
-         host: "example.com",
-         path: "/api/users",
-         protocolVersion: "HTTP/1.1",
-         headers: [{ name: "Origin", value: "https://client.com" }],
-      },
-      response: {
-         protocolVersion: "HTTP/1.1",
-         statusCode: 204,
-         statusMessage: "No Content",
-         headers: [
-            { name: "Access-Control-Allow-Origin", value: "*" },
-            { name: "Access-Control-Allow-Methods", value: "GET,POST,DELETE" },
-         ],
-      },
-   },
-];
+// const SAMPLE: HttpExchange[] = [
+//    {
+//       id: "1",
+//       time: "2025-11-06T13:05:00Z",
+//       request: {
+//          method: "GET",
+//          target: "/api/users",
+//          host: "example.com",
+//          path: "/api/users",
+//          protocolVersion: "HTTP/1.1",
+//          headers: [{ name: "Accept", value: "application/json" }],
+//          queryParams: [{ name: "page", value: "1" }],
+//       },
+//       response: {
+//          protocolVersion: "HTTP/1.1",
+//          statusCode: 200,
+//          statusMessage: "OK",
+//          headers: [{ name: "Content-Type", value: "application/json" }],
+//          body: { text: '{"users":[{"id":1,"name":"Alice"}]}' },
+//       },
+//    },
+//    {
+//       id: "2",
+//       time: "2025-11-06T13:06:00Z",
+//       request: {
+//          method: "POST",
+//          target: "/api/login",
+//          host: "example.com",
+//          path: "/api/login",
+//          protocolVersion: "HTTP/1.1",
+//          headers: [
+//             { name: "Content-Type", value: "application/json" },
+//             { name: "Accept", value: "application/json" },
+//          ],
+//          body: { text: '{"username":"john","password":"secret"}' },
+//       },
+//       response: {
+//          protocolVersion: "HTTP/1.1",
+//          statusCode: 201,
+//          statusMessage: "Created",
+//          headers: [{ name: "Set-Cookie", value: "sessionId=abc123" }],
+//          body: { text: '{"token":"xyz"}' },
+//       },
+//    },
+//    {
+//       id: "3",
+//       time: "2025-11-06T13:07:00Z",
+//       request: {
+//          method: "DELETE",
+//          target: "/api/users/1",
+//          host: "example.com",
+//          path: "/api/users/1",
+//          protocolVersion: "HTTP/1.1",
+//          headers: [{ name: "Authorization", value: "Bearer xyz" }],
+//       },
+//       response: {
+//          protocolVersion: "HTTP/1.1",
+//          statusCode: 204,
+//          statusMessage: "No Content",
+//          headers: [],
+//       },
+//    },
+//    {
+//       id: "4",
+//       time: "2025-11-06T13:08:00Z",
+//       request: {
+//          method: "PATCH",
+//          target: "/api/users/1",
+//          host: "example.com",
+//          path: "/api/users/1",
+//          protocolVersion: "HTTP/1.1",
+//          headers: [{ name: "Content-Type", value: "application/json" }],
+//          body: { text: '{"name":"Alice Updated"}' },
+//       },
+//       response: {
+//          protocolVersion: "HTTP/1.1",
+//          statusCode: 200,
+//          statusMessage: "OK",
+//          headers: [{ name: "Content-Type", value: "application/json" }],
+//          body: { text: '{"id":1,"name":"Alice Updated"}' },
+//       },
+//    },
+//    {
+//       id: "5",
+//       time: "2025-11-06T13:09:00Z",
+//       request: {
+//          method: "OPTIONS",
+//          target: "/api/users",
+//          host: "example.com",
+//          path: "/api/users",
+//          protocolVersion: "HTTP/1.1",
+//          headers: [{ name: "Origin", value: "https://client.com" }],
+//       },
+//       response: {
+//          protocolVersion: "HTTP/1.1",
+//          statusCode: 204,
+//          statusMessage: "No Content",
+//          headers: [
+//             { name: "Access-Control-Allow-Origin", value: "*" },
+//             { name: "Access-Control-Allow-Methods", value: "GET,POST,DELETE" },
+//          ],
+//       },
+//    },
+// ];
 
 
 
@@ -116,10 +117,42 @@ export default function HttpHistoryPage() {
    const [query, setQuery] = useState<string>("");
    const [methodFilter, setMethodFilter] = useState<Method | "ALL">("ALL");
    const [selectedRequest, setSelectedRequest] = useState<HttpExchange | null>(null);
-   const [list] = useState<HttpExchange[]>(SAMPLE);
+   const [list, setList] = useState<HttpExchange[]>([]);
 
    const [rawRequest, setRawRequest] = useState("");
    const [rawResponse, setRawResponse] = useState("");
+   const [connectionStatus, setConnectionStatus] = useState("Uninstantiated");
+
+   const WS_URL = "ws://127.0.0.1:8082"
+
+   // Hook principal
+   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
+      shouldReconnect: () => true,
+      reconnectAttempts: 5,
+      reconnectInterval: 2000,
+   });
+
+   // Recebe novas mensagens JSON
+   useEffect(() => {
+      if (!lastJsonMessage) return;
+      try {
+         const data = lastJsonMessage as HttpExchange;
+         setList((prev:any) => [data, ...prev]);
+      } catch (err) {
+         console.error("Erro ao processar mensagem:", err);
+      }
+   }, [lastJsonMessage]);
+
+   useEffect(() => {
+      const statusMap = {
+         [ReadyState.CONNECTING]: "Connecting",
+         [ReadyState.OPEN]: "Open",
+         [ReadyState.CLOSING]: "Closing",
+         [ReadyState.CLOSED]: "Closed",
+         [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+      };
+      setConnectionStatus(statusMap[readyState]);
+   }, [readyState]);
 
    const filtered = list.filter((r) => {
       if (methodFilter !== "ALL" && r.request.method !== methodFilter) return false;
@@ -160,7 +193,7 @@ export default function HttpHistoryPage() {
    return (
       <div className="h-full flex flex-col text-gray-100">
          <div className="flex items-center gap-3 p-3 bg-bgprimary rounded-t-md">
-            <h2 className="text-lg text-emerald-400/30">HTTP History</h2>
+            <h2 className="text-lg text-emerald-400/30">HTTP History ({connectionStatus})</h2>
             <div className="ml-auto flex items-center gap-2">
                <input
                   value={query}

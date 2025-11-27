@@ -31,17 +31,24 @@ proxy.onError((ctx, err) => {
 
 proxy.onRequest((ctx, callback) => {
   const req = ctx.clientToProxyRequest;
+
+  //Enviar tudo isso para uma função que irá receber e retornar requestModel
   const scheme = ctx.isSSL ? "https" : "http";
+  //aqui
   const fullUrl = `${scheme}://${req.headers.host || "localhost"}${
     req.url || "/"
   }`;
-  const urlInfo = httpZ.utils.parseUrl(fullUrl);
+  //aqui
+  const urlInfo = httpZ.utils.parseUrl(fullUrl, req.headers.host);
+
+  //aqui
   const requestModel = {
     method: req.method || "GET",
     protocolVersion: req.httpVersion,
     protocol: "HTTP",
     host: req.headers.host || "",
     path: urlInfo.path || req.url || "",
+    target: urlInfo.path || req.url || "",
     headers: Object.entries(req.headers || {}).map(([k, v]) => ({
       name: k,
       value: Array.isArray(v) ? v.join(",") : String(v),
